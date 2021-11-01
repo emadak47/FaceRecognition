@@ -22,29 +22,104 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `Customer`
---
-DROP TABLE IF EXISTS `Customer`;
+DROP TABLE IF EXISTS `Account`, `Branch`, `CurrentAccount`, `Customer`, `Descriptions`, `Loan`, `Phone`, `SavingsAccount`, `Transaction`;
 
-# Create TABLE 'Customer'
 CREATE TABLE `Customer` (
-  `customer_id` int NOT NULL,
+  `customerID` int NOT NULL,
   `name` varchar(50) NOT NULL,
   `login_time` time NOT NULL,
-  `login_date` date NOT NULL
+  `login_date` date NOT NULL,
+  `info.address.city` varchar(50) NOT NULL,
+  `info.address.street` varchar(100) NOT NULL,
+  `info.address.flatNumber` varchar(50) NOT NULL,
+  `info.address.country` varchar(50) NOT NULL,
+  `info.name.first` varchar(50) NOT NULL,
+  `info.name.second` varchar(50) NOT NULL,
+  PRIMARY KEY(`customerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-LOCK TABLES `Customer` WRITE;
+CREATE TABLE `Branch`(
+  `branchID` int NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `location` varchar(50) NOT NULL,
+  PRIMARY KEY(`branchID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Loan` (
+  `loanID` int NOT NULL,
+  `amount` int NOT NULL,
+  `interest` float NOT NULL,
+  `expiryDate` date NOT NULL,
+  `branchID` int NOT NULL,
+  PRIMARY KEY(`loanID`),
+  FOREIGN KEY (`branchID`) REFERENCES `Branch`(`branchID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Account`(
+  `accountNumber` int NOT NULL,
+  `balance` int NOT NULL,
+  `customerID` int NOT NULL,
+  `branchID` int NOT NULL,
+  PRIMARY KEY(`accountNumber`),
+  FOREIGN KEY (`customerID`) REFERENCES `Customer`(`customerID`),
+  FOREIGN KEY (`branchID`) REFERENCES `Branch`(`branchID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `SavingsAccount`(
+  `accountNumber` int NOT NULL,
+  `accountType.currency` varchar(50) NOT NULL,
+  `accountType.ticker` varchar(50) NOT NULL,
+  `balance` int NOT NULL,
+  PRIMARY KEY(`accountNumber`),
+  FOREIGN KEY (`accountNumber`) REFERENCES `Account`(`accountNumber`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `CurrentAccount`(
+  `accountNumber` int NOT NULL,
+  `linkedSavingsAccount` int NOT NULL,
+  `balance` int NOT NULL,
+  PRIMARY KEY(`accountNumber`),
+  FOREIGN KEY (`accountNumber`) REFERENCES `Account`(`accountNumber`),
+  FOREIGN KEY (`linkedSavingsAccount`) REFERENCES `SavingsAccount`(`accountNumber`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Phone`(
+  `customerID` int NOT NULL,
+  `phoneNumbers` varchar(50) NOT NULL,
+  PRIMARY KEY(`customerID`, `phoneNumbers`),
+  FOREIGN KEY (`customerID`) REFERENCES `Customer`(`customerID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Transaction`(
+  `transactionID` int NOT NULL,
+  `amount` int NOT NULL,
+  `createdBy.accountNumber` int NOT NULL,
+  `creationDate` date NOT NULL,
+  `createdBy.city` varchar(50) NOT NULL,
+  PRIMARY KEY(`transactionID`),
+  FOREIGN KEY (`createdBy.accountNumber`) REFERENCES `Account`(`accountNumber`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Descriptions`(
+  `transactionID` int NOT NULL,
+  `description` varchar(500) NOT NULL,
+  PRIMARY KEY(`transactionID`, `description`),
+  FOREIGN KEY (`transactionID`) REFERENCES `Transaction`(`transactionID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- InternalTransaction(internalTransactionID, transactionID, to.accountID, from.accountID)
+-- - internalTransactionID referencing Transaction
+-- - to.accountID referencing CurrentAccount
+-- - from.accountID referencing CurrentAccount
+
+--  -- --- --  no idea what this means
+-- LOCK TABLES `Customer` WRITE;
 /*!40000 ALTER TABLE `Customer` DISABLE KEYS */;
-INSERT INTO `Customer` VALUES (1, "JACK", NOW(), '2021-09-01');
 /*!40000 ALTER TABLE `Customer` ENABLE KEYS */;
-UNLOCK TABLES;
+-- UNLOCK TABLES;
 
-
-# Create TABLE 'Account'
-# Create TABLE 'Transaction'
-# Create other TABLE...
+--  -- -- test data
+-- INSERT INTO `Customer` VALUES (1, "JACK", NOW(), '2021-09-01');
 
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
