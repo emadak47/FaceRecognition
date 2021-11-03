@@ -19,23 +19,47 @@ SET time_zone = "+00:00";
 --
 -- Database: `facerecognition`
 --
+CREATE DATABASE IF NOT EXISTS facerecognition;
 
 -- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `Account`, `Branch`, `CurrentAccount`, `Customer`, `Descriptions`, `Loan`, `Phone`, `SavingsAccount`, `Transaction`;
+DROP TABLE IF EXISTS `Account`, `Branch`, `CurrentAccount`, `Customer`, `User`, `Merchant`, `Loan`, `Phone`, `SavingsAccount`, `Transaction`, `P2P`, `Payment`;
 
-CREATE TABLE `Customer` (
-  `customerID` int NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `login_time` time NOT NULL,
-  `login_date` date NOT NULL,
-  `info.address.city` varchar(50) NOT NULL,
-  `info.address.street` varchar(100) NOT NULL,
-  `info.address.flatNumber` varchar(50) NOT NULL,
-  `info.address.country` varchar(50) NOT NULL,
-  `info.name.first` varchar(50) NOT NULL,
-  `info.name.second` varchar(50) NOT NULL,
-  PRIMARY KEY(`customerID`)
+CREATE TABLE `User` (
+  `user_id` int NOT NULL,
+  `name.first` varchar(50) NOT NULL,
+  `name.last` varchar(50) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `login.time` time NOT NULL,
+  `login.date` date NOT NULL,
+  `logout.time` time NOT NULL,
+  `logout.date` date NOT NULL,
+  `address.city` varchar(50) NOT NULL,
+  `address.street` varchar(500) NOT NULL,
+  `address.flat_no` varchar(50) NOT NULL,
+  `address.country` varchar(50) NOT NULL,
+  PRIMARY KEY(`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Phone`(
+  `user_id` int NOT NULL,
+  `phoneNumbers` varchar(50) NOT NULL,
+  PRIMARY KEY(`user_id`, `phoneNumbers`),
+  FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Customer`(
+  `user_id` int NOT NULL,
+  PRIMARY KEY(`user_id`),
+  FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Merchant`(
+  `user_id` int NOT NULL,
+  `business_type` varchar(50) NOT NULL,
+  PRIMARY KEY(`user_id`),
+  FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `Branch`(
@@ -45,82 +69,65 @@ CREATE TABLE `Branch`(
   PRIMARY KEY(`branchID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `Loan` (
-  `loanID` int NOT NULL,
-  `amount` int NOT NULL,
-  `interest` float NOT NULL,
-  `expiryDate` date NOT NULL,
-  `branchID` int NOT NULL,
-  PRIMARY KEY(`loanID`),
-  FOREIGN KEY (`branchID`) REFERENCES `Branch`(`branchID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 CREATE TABLE `Account`(
-  `accountNumber` int NOT NULL,
-  `balance` int NOT NULL,
-  `customerID` int NOT NULL,
+  `account_no` int NOT NULL,
+  `user_id` int NOT NULL,
   `branchID` int NOT NULL,
-  PRIMARY KEY(`accountNumber`),
-  FOREIGN KEY (`customerID`) REFERENCES `Customer`(`customerID`),
+  PRIMARY KEY(`account_no`),
+  FOREIGN KEY (`user_id`) REFERENCES `User`(`user_id`),
   FOREIGN KEY (`branchID`) REFERENCES `Branch`(`branchID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `SavingsAccount`(
-  `accountNumber` int NOT NULL,
-  `accountType.currency` varchar(50) NOT NULL,
-  `accountType.ticker` varchar(50) NOT NULL,
-  `balance` int NOT NULL,
-  PRIMARY KEY(`accountNumber`),
-  FOREIGN KEY (`accountNumber`) REFERENCES `Account`(`accountNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `CurrentAccount`(
-  `accountNumber` int NOT NULL,
-  `linkedSavingsAccount` int NOT NULL,
+  `account_no` int NOT NULL,
   `balance` int NOT NULL,
-  PRIMARY KEY(`accountNumber`),
-  FOREIGN KEY (`accountNumber`) REFERENCES `Account`(`accountNumber`),
-  FOREIGN KEY (`linkedSavingsAccount`) REFERENCES `SavingsAccount`(`accountNumber`)
+  PRIMARY KEY(`account_no`),
+  FOREIGN KEY (`account_no`) REFERENCES `Account`(`account_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `Phone`(
-  `customerID` int NOT NULL,
-  `phoneNumbers` varchar(50) NOT NULL,
-  PRIMARY KEY(`customerID`, `phoneNumbers`),
-  FOREIGN KEY (`customerID`) REFERENCES `Customer`(`customerID`)
+CREATE TABLE `SavingsAccount`(
+  `account_no` int NOT NULL,
+  `account_currency` varchar(50) NOT NULL,
+  `balance` int NOT NULL,
+  `linkedCurrentAccount` int NOT NULL,
+  PRIMARY KEY(`account_no`),
+  FOREIGN KEY (`account_no`) REFERENCES `Account`(`account_no`),
+  FOREIGN KEY (`linkedCurrentAccount`) REFERENCES `CurrentAccount`(`account_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `Transaction`(
-  `transactionID` int NOT NULL,
+  `tx_id` int NOT NULL,
   `amount` int NOT NULL,
-  `createdBy.accountNumber` int NOT NULL,
-  `creationDate` date NOT NULL,
-  `createdBy.city` varchar(50) NOT NULL,
-  PRIMARY KEY(`transactionID`),
-  FOREIGN KEY (`createdBy.accountNumber`) REFERENCES `Account`(`accountNumber`)
+  `description` varchar(50) NOT NULL,
+  `created_by.account_no` int NOT NULL,
+  `creation_time` time NOT NULL,
+  `creation_day` int NOT NULL,
+  `creation_month` int NOT NULL,
+  `creation_year` int NOT NULL,
+  PRIMARY KEY(`tx_id`),
+  FOREIGN KEY (`created_by.account_no`) REFERENCES `Account`(`account_no`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `Descriptions`(
-  `transactionID` int NOT NULL,
-  `description` varchar(500) NOT NULL,
-  PRIMARY KEY(`transactionID`, `description`),
-  FOREIGN KEY (`transactionID`) REFERENCES `Transaction`(`transactionID`)
+CREATE TABLE `P2P`(
+  `tx_id` int NOT NULL,
+  PRIMARY KEY(`tx_id`),
+  FOREIGN KEY (`tx_id`) REFERENCES `Transaction`(`tx_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- InternalTransaction(internalTransactionID, transactionID, to.accountID, from.accountID)
--- - internalTransactionID referencing Transaction
--- - to.accountID referencing CurrentAccount
--- - from.accountID referencing CurrentAccount
-
---  -- --- --  no idea what this means
--- LOCK TABLES `Customer` WRITE;
-/*!40000 ALTER TABLE `Customer` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Customer` ENABLE KEYS */;
--- UNLOCK TABLES;
+CREATE TABLE `Payment`(
+  `tx_id` int NOT NULL,
+  PRIMARY KEY(`tx_id`),
+  FOREIGN KEY (`tx_id`) REFERENCES `Transaction`(`tx_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --  -- -- test data
--- INSERT INTO `Customer` VALUES (1, "JACK", NOW(), '2021-09-01');
+-- INSERT INTO `User` VALUES (1, "JACK", NOW(), '2021-09-01');
 
+--  -- --- --  no idea what this means
+-- LOCK TABLES `User` WRITE;
+/*!40000 ALTER TABLE `User` DISABLE KEYS */;
+/*!40000 ALTER TABLE `User` ENABLE KEYS */;
+-- UNLOCK TABLES;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
