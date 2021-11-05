@@ -9,7 +9,7 @@ import sys
 import PySimpleGUI as sg
 
 # 1 Create database connection
-myconn = mysql.connector.connect(host="localhost", user="root", passwd="3madja7sh1357aboalgmagm", database="facerecognition")
+myconn = mysql.connector.connect(host="localhost", user="root", passwd="123456", database="facerecognition")
 date = datetime.utcnow()
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
@@ -109,23 +109,24 @@ while True:
                 cursor.execute(update, val)
                 myconn.commit()
 
-                layout = [[sg.Text("Hello " + current_name + "Welcom to the iKYC System")]
-                , [sg.Button("View Transaction History")],
-                [sg.Button("View Accounts and Balances")],
-                [sg.Button("Other function we need")]]
+                lyt = [[sg.Text("Hello " + 'Aditya' + "Welcom to the iKYC System")], [sg.Button("View Transaction History")], [sg.Button("View Accounts and Balances")], [sg.Button("Other function we need")]]
                 
-                window = sg.Window(title="Home Page", layout, margins=(200, 150))
+                window = sg.Window(title="Home Page",layout = lyt, margins=(200, 150))
 
                 while True:
-                    event,values = window.read()
-                    if event == sg.WIN_CLOSED:
-                        break
-                    elif event == "View Transaction History":
-                        #DO SOMETHING
-                    elif event == "View Accounts and Balances":
-                        #Do something
-                    elif event == "Other function we need":
-                        #Do something
+                  event,values = window.read()
+                  
+                  if event == sg.WIN_CLOSED:
+                    break
+                    
+                  elif event == "View Transaction History":
+                      print("View Transaction History")
+                  
+                  elif event == "View Accounts and Balances":
+                      print("View Accounts and Balances")
+
+                  elif event == "Other function we need":
+                      print("Other function we need")
 
                 #engine.say(hello)
 
