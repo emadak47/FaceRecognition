@@ -19,6 +19,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `facerecognition`
 --
+
 CREATE DATABASE IF NOT EXISTS facerecognition;
 
 -- --------------------------------------------------------
