@@ -108,10 +108,26 @@ while True:
                 val = (current_time, current_name)
                 cursor.execute(update, val)
                 myconn.commit()
-               
-                hello = ("Hello ", current_name, "Welcom to the iKYC System")
-                print(hello)
-                engine.say(hello)
+
+                layout = [[sg.Text("Hello " + current_name + "Welcom to the iKYC System")]
+                , [sg.Button("View Transaction History")],
+                [sg.Button("View Accounts and Balances")],
+                [sg.Button("Other function we need")]]
+                
+                window = sg.Window(title="Home Page", layout, margins=(200, 150))
+
+                while True:
+                    event,values = window.read()
+                    if event == sg.WIN_CLOSED:
+                        break
+                    elif event == "View Transaction History":
+                        #DO SOMETHING
+                    elif event == "View Accounts and Balances":
+                        #Do something
+                    elif event == "Other function we need":
+                        #Do something
+
+                #engine.say(hello)
 
 
         # 4.2 If the face is unrecognized
