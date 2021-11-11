@@ -3,7 +3,9 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-def faceCapture(user_name, num_images, base_dir): 
+def faceCapture(user_name, num_images): 
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+
     faceCascade = cv2.CascadeClassifier(
         os.path.join(base_dir, 'haarcascade/haarcascade_frontalface_default.xml')
     )
@@ -51,6 +53,7 @@ def faceCapture(user_name, num_images, base_dir):
 
         # Display the resulting frame
         cv2.imshow('Video', frame)
+        cv2.setWindowProperty('Video', cv2.WND_PROP_TOPMOST, 1)
         # Store the captured images in `data/Jack`
         cv2.imwrite(
             os.path.join(base_dir, "data/{}/{}{:03d}.jpg".format(user_name, user_name, cnt)),
@@ -66,8 +69,7 @@ def faceCapture(user_name, num_images, base_dir):
 
 
 if __name__ == '__main__':
-    base_dir = os.getenv("BASE_DIR")
-    user_name = "Aayush"
-    num_images = 100
+    user_name = "Dhruv"
+    num_images = 400
     
-    faceCapture(user_name, num_images, base_dir)
+    faceCapture(user_name, num_images)

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COMP 3278 Face Recognition Sign In Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename = 'css/index_style.css') }}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row px-3">
+      <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+        <div class="img-left d-none d-md-flex"></div>
+        <div class="card-body">
+          <h4 class="title text-center mt-4">
+            Login into iKYC
+          </h4>
+          <form class="form-box px-3">
+            <div class="form-input">
+              <span><i class="fa fa-envelope-o"></i></span>
+              <input type="email" name="" placeholder="User Name" tabindex="10" required>
+            </div>
+            <div class="form-input">
+              <span><i class="fa fa-key"></i></span>
+              <input type="password" name="" placeholder="Password" required>
+            </div>
+
+
+            <div class="mb-3">
+              <button type="submit" class="btn btn-block text-uppercase login-button">
+                Login
+              </button>
+            </div>
+
+            <!-- <div class="text-center">
+              <a href="#" class="forget-link">
+                Forget Password?
+              </a>
+            </div> -->
+          </form>
+          <form class="form-box px-3" action="" method="POST">
+            <div class="mb-4">
+              <button type="submit" class="btn btn-block text-uppercase login-button">
+                Use Face ID
+              </button>
+            </div>
+          </form>
+          <hr class="my-4">
+          <div class="text-right">
+            {% if message != null %}
+            <h6> {{ message }} </h6>
+            {% endif %}
+          </div>
+          <div class="text-center mb-1">
+            Don't have an account?
+            <a href="signup" class="register-link">
+              Register here
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- jQuery (Bootstrap JS plugins depend on it) -->
+  <script src="{{ url_for('static', filename = 'js/jquery-3.6.0.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename = 'js/index_script.js') }}"></script>
+</body>
+
+</html>

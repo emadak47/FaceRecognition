@@ -9,7 +9,7 @@ import sys
 import PySimpleGUI as sg
 
 # 1 Create database connection
-myconn = mysql.connector.connect(host="localhost", user="root", passwd="123456", database="facerecognition")
+myconn = mysql.connector.connect(host="localhost", user="root", passwd="7/2Roopnagar", database="facerecognition")
 date = datetime.utcnow()
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
@@ -109,7 +109,7 @@ while True:
                 cursor.execute(update, val)
                 myconn.commit()
 
-                lyt = [[sg.Text("Hello " + 'Aditya' + "Welcom to the iKYC System")], [sg.Button("View Transaction History")], [sg.Button("View Accounts and Balances")], [sg.Button("Other function we need")]]
+                lyt = [[sg.Text("Hello " + current_name + " Welcome to the iKYC System")], [sg.Button("View Transaction History")], [sg.Button("View Accounts and Balances")], [sg.Button("Other function we need")]]
                 
                 window = sg.Window(title="Home Page",layout = lyt, margins=(200, 150))
 

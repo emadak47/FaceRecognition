@@ -104,3 +104,22 @@ body {
     color: #ac34e3;
     text-decoration: none;
 }
+
+.login-button {
+    margin-top: 10px;
+    border: transparent;
+    border-radius: 50px;
+    background: #ac34e3;
+    color: #fff;
+    font-size: 90%;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    transition: 0.5s;
+    padding: 12px;
+    width: 100%;
+}
+
+.login-button:hover {
+    background: black;
+    color: #ac34e3;
+}
