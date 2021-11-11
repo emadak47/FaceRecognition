@@ -9,7 +9,7 @@ body {
     background-color: #f3f3f3;
 }
 
-.wrapper {
+.login-history-wrapper {
     position: absolute;
     display: flex;
     top: 50%;
@@ -20,7 +20,7 @@ body {
     box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
 }
 
-.wrapper .left {
+.login-history-wrapper .left {
     width: 40%;
     background: linear-gradient(to right, #6f419c, #ac34e3);
     padding: 25px 25px;
@@ -30,7 +30,7 @@ body {
     color: #fff;
 }
 
-.wrapper .left img {
+.login-history-wrapper .left img {
     border-radius: 50%;
     border: 1px solid;
     width: 50%;
@@ -38,40 +38,40 @@ body {
     margin-bottom: -10px;
 }
 
-.wrapper .left h6 {
+.login-history-wrapper .left h6 {
     font-size: 12px;
     color: rgb(53, 48, 48);
 }
 
-.wrapper .left h4 {
+.login-history-wrapper .left h4 {
     color: rgb(53, 48, 48);
     font-weight: bolder;
 }
 
-.wrapper .left h5 {
+.login-history-wrapper .left h5 {
     font-size: 12px;
     margin-bottom: 2px;
 }
 
-.wrapper .left > p {
+.login-history-wrapper .left > p {
     font-size: 12px;
     margin-bottom: -2px;
     margin-left: -100px;
 }
 
-.wrapper .accounts {
+.login-history-wrapper .accounts {
     margin-top: 10px;
     font-size: 12px;
     display: flex;
     justify-content: space-between;
 }
 
-.wrapper .branch {
+.login-history-wrapper .branch {
     color: rgb(53, 48, 48);
     font-weight: bold;
 }
 
-.wrapper .address {
+.login-history-wrapper .address {
     margin-top: 10px;
     font-size: 12px;
     display: grid;
@@ -81,12 +81,12 @@ body {
     grid-gap: 20px;
 }
 
-.wrapper .address-title {
+.login-history-wrapper .address-title {
     color: rgb(53, 48, 48);
     font-weight: bold;
 }
 
-.wrapper .right {
+.login-history-wrapper .right {
     width: 65%;
     background: #fff;
     padding: 30px 25px;
@@ -94,7 +94,7 @@ body {
     border-bottom-right-radius: 20px;
 }
 
-.wrapper .right .bottom-bar {
+.login-history-wrapper .right .bottom-bar {
     padding-left: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
