@@ -1,23 +1,13 @@
-import urllib
-import numpy as np
-import mysql.connector
 import cv2
 import pyttsx3
 import pickle
-from datetime import datetime
-import sys
+from src.utils import get_user_id_from_name
+from src.Customer import Customer
+from src.Log import Log
 
 
 def login_system():
-    # 1 Create database connection
-    myconn = mysql.connector.connect(host="localhost", user="root", passwd="7/2Roopnagar", database="facerecognition")
-    date = datetime.utcnow()
-    now = datetime.now()
-    current_time = now.strftime("%H:%M:%S")
-    cursor = myconn.cursor()
-
-
-    #2 Load recognize and read label from model
+    #1 Load recognize and read label from model
     recognizer = cv2.face.LBPHFaceRecognizer_create()
     recognizer.read("train.yml")
 
@@ -35,7 +25,7 @@ def login_system():
     face_cascade = cv2.CascadeClassifier('haarcascade/haarcascade_frontalface_default.xml')
     cap = cv2.VideoCapture(0)
 
-    # 3 Open the camera and start face recognition
+    #2 Open the camera and start face recognition
     face_identify_counter = 0
     while face_identify_counter < 200:
         face_identify_counter += 1
@@ -50,7 +40,7 @@ def login_system():
             # predict the id and confidence for faces
             id_, conf = recognizer.predict(roi_gray)
 
-            # 3.1 If the face is recognized
+            #2.1 If the face is recognized
             if conf >= 90:
                 # print(id_)
                 # print(labels[id_])
@@ -65,35 +55,20 @@ def login_system():
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), (2))
 
                 # Find the customer's information in the database.
-                select = "SELECT customer_id, name, DAY(login_date), MONTH(login_date), YEAR(login_date) FROM Customer WHERE name='%s'" % (name)
-                name = cursor.execute(select)
-                result = cursor.fetchall()
-                # print(result)
-                data = "error"
-
-                for x in result:
-                    data = x
+                customer_id = get_user_id_from_name(current_name)
+                customer = Customer(customer_id)
+                response = customer.get_user_details()
 
                 # If the customer's information is not found in the database
-                if data == "error":
+                if not len(response):
                     print("The customer", current_name, "is NOT FOUND in the database.")
 
                 # If the customer's information is found in the database
                 else:
-                    """
-                    Implement useful functions here.
-                    
+                    # Update the data in LogHistory
+                    log = Log(customer_id)
+                    log.insert_log()
 
-                    """
-                    # Update the data in database
-                    update =  "UPDATE Customer SET login_date=%s WHERE name=%s"
-                    val = (date, current_name)
-                    cursor.execute(update, val)
-                    update = "UPDATE Customer SET login_time=%s WHERE name=%s"
-                    val = (current_time, current_name)
-                    cursor.execute(update, val)
-                    myconn.commit()
-                
                     hello = ("Hello ", current_name, "Welcom to the iKYC System")
                     print(hello)
                     engine.say(hello)
@@ -102,7 +77,7 @@ def login_system():
                     return 'Successful Login'
 
 
-            # 3.2 If the face is unrecognized
+            #2.2 If the face is unrecognized
             else: 
                 color = (255, 0, 0)
                 stroke = 2

@@ -1,11 +1,10 @@
-import mysql.connector
-from datetime import datetime
-import os
-import sys
 from flask import Flask, redirect, url_for, render_template, request
-from faces import login_system
+from src.utils import get_latest_customer_id
 from face_capture import faceCapture
+from faces import login_system
 from train import train
+from src.Customer import Customer
+from src.Log import Log
 app = Flask(__name__)
 
 @app.route('/signup', methods=['POST','GET'])
@@ -17,15 +16,20 @@ def signup():
         faceCapture(username, 100)
         train()
 
-        myconn = mysql.connector.connect(host="localhost", user="root", passwd="7/2Roopnagar", database="facerecognition")
-        date = datetime.utcnow().strftime('%Y-%m-%d')
-        now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
-        cursor = myconn.cursor()
-
-        insert_command = f"INSERT INTO `Customer` VALUES (3, '{username}' , NOW(), '{date}');"
-        cursor.execute(insert_command)
-        myconn.commit()
+        customer_id = get_latest_customer_id()
+        customer = Customer(customer_id)
+        # customer.insert_new_user(
+        #     name_first,
+        #     name_last,
+        #     email,
+        #     password,
+        #     address_city, 
+        #     address_street,
+        #     address_flat_no,
+        #     address_country
+        # )
+        log = Log(customer_id)
+        log.insert_log()
 
         return redirect(url_for('index', message = "Signed Up successfully"))
 
