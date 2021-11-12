@@ -9,7 +9,7 @@ import sys
 import PySimpleGUI as sg
 
 # 1 Create database connection
-myconn = mysql.connector.connect(host="localhost", user="root", passwd="7/2Roopnagar", database="facerecognition")
+myconn = mysql.connector.connect(host="localhost", user="root", passwd="12345678", database="facerecognition")
 date = datetime.utcnow()
 now = datetime.now()
 current_time = now.strftime("%H:%M:%S")
@@ -98,7 +98,7 @@ while True:
             else:
                 """
                 Implement useful functions here.
-                
+
 
                 """
                 update =  "UPDATE Customer SET login_date=%s WHERE name=%s"
@@ -110,18 +110,18 @@ while True:
                 myconn.commit()
 
                 lyt = [[sg.Text("Hello " + current_name + " Welcome to the iKYC System")], [sg.Button("View Transaction History")], [sg.Button("View Accounts and Balances")], [sg.Button("Other function we need")]]
-                
+
                 window = sg.Window(title="Home Page",layout = lyt, margins=(200, 150))
 
                 while True:
                   event,values = window.read()
-                  
+
                   if event == sg.WIN_CLOSED:
                     break
-                    
+
                   elif event == "View Transaction History":
                       print("View Transaction History")
-                  
+
                   elif event == "View Accounts and Balances":
                       print("View Accounts and Balances")
 
@@ -132,7 +132,7 @@ while True:
 
 
         # 4.2 If the face is unrecognized
-        else: 
+        else:
             color = (255, 0, 0)
             stroke = 2
             font = cv2.QT_FONT_NORMAL
@@ -144,7 +144,7 @@ while True:
             # engine.runAndWait()
 
     # GUI
-    imgbytes = cv2.imencode('.png', frame)[1].tobytes() 
+    imgbytes = cv2.imencode('.png', frame)[1].tobytes()
     if not win_started:
         win_started = True
         layout = [
@@ -167,6 +167,6 @@ while True:
         break
     gui_confidence = values['confidence']
 
-        
+
 win.Close()
 cap.release()

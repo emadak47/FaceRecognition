@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-def faceCapture(user_name, num_images): 
+def faceCapture(user_name, num_images):
     base_dir = os.path.dirname(os.path.abspath(__file__))
 
     faceCascade = cv2.CascadeClassifier(
@@ -48,8 +48,8 @@ def faceCapture(user_name, num_images):
                     fontScale,
                     fontColor,
                     lineType)
-    
-    
+
+
 
         # Display the resulting frame
         cv2.imshow('Video', frame)
@@ -69,7 +69,7 @@ def faceCapture(user_name, num_images):
 
 
 if __name__ == '__main__':
-    user_name = "Dhruv"
+    user_name = "aayush920"
     num_images = 400
-    
+
     faceCapture(user_name, num_images)

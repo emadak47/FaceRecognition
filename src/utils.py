@@ -4,8 +4,8 @@ from src.DB import DB
 def get_user_id_from_name(name_first):
     db = DB()
     query = """
-            SELECT customer_id 
-            FROM Customer 
+            SELECT customer_id
+            FROM Customer
             WHERE name_first = "{}";
     """.format(name_first)
     response = db.read(query)
@@ -18,4 +18,4 @@ def get_latest_customer_id():
             FROM Customer;
     """
     response = db.read(query)
-    return response[0]['Latest'] + 1
+    return response[0]['Latest'] + 1 #THE PROBLEM IS HERE! I need to link w my database

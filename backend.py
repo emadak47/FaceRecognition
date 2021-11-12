@@ -5,6 +5,8 @@ from faces import login_system
 from train import train
 from src.Customer import Customer
 from src.Log import Log
+from src.Transaction import Transaction
+from flask import jsonify
 app = Flask(__name__)
 
 @app.route('/signup', methods=['POST','GET'])
@@ -23,7 +25,7 @@ def signup():
         #     name_last,
         #     email,
         #     password,
-        #     address_city, 
+        #     address_city,
         #     address_street,
         #     address_flat_no,
         #     address_country
@@ -50,6 +52,27 @@ def index():
     else:
         return render_template('index.html')
 
+@app.route('/transactions', methods = ['POST','GET'])
+def transactions():
+    return render_template('transactions.html')
+
+@app.route('/transactionsBackend', methods=['GET', 'POST'])
+def retreiveTxData():
+    # GET request
+    if request.method == 'GET':
+        newTransaction = Transaction(1) #using customer_id = 1 for testing
+        transactions = newTransaction.get_tx()
+        print(transactions)
+
+        # return {'data':[{'data1':'hello'}, {'data2':'bye'}]}
+        return {'data':transactions}
+        message = [{'greeting':'Hello from Flask!'}]
+        return message # serialize and use JSON headers
+
+    # POST request
+    if request.method == 'POST': #this doesn't do anything
+        print(request.get_json())  # parse as JSON
+        return 'Sucesss', 200
 
 if __name__ == '__main__':
     app.run(debug = True)
