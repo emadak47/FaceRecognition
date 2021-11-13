@@ -55,7 +55,6 @@ def login_system():
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), (2))
 
                 # Find the customer's information in the database.
-                print('Current Name' + current_name)
                 customer_id = get_user_id_from_name(current_name)
 
                 # If the customer's information is not found in the database
@@ -77,7 +76,7 @@ def login_system():
                     engine.say(hello)
                     # engine.runAndWait()
 
-                    return 'Successful Login'
+                    return customer_id
 
 
             #2.2 If the face is unrecognized
@@ -100,7 +99,7 @@ def login_system():
             
     cap.release()
     cv2.destroyAllWindows()
-    return 'Failed Login'
+    return -1
 
 if __name__ == '__main__':
     print(login_system())

@@ -39,6 +39,7 @@ body {
 }
 
 .login-history-wrapper .left h6 {
+    padding-top: 10px;
     font-size: 12px;
     color: rgb(53, 48, 48);
 }
@@ -59,14 +60,14 @@ body {
     margin-left: -100px;
 }
 
-.login-history-wrapper .accounts {
+.login-history-wrapper .login-info {
     margin-top: 10px;
     font-size: 12px;
     display: flex;
     justify-content: space-between;
 }
 
-.login-history-wrapper .branch {
+.login-history-wrapper .last-login {
     color: rgb(53, 48, 48);
     font-weight: bold;
 }

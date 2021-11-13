@@ -5,9 +5,27 @@ from faces import login_system
 from train import train
 from src.Customer import Customer
 from src.Log import Log
+from src.Account import Account
 app = Flask(__name__)
 
-@app.route('/signup', methods=['POST','GET'])
+@app.route('/profile/<int:customer_id>')
+def profile(customer_id):
+    customer = Customer(customer_id)
+    customer_data = customer.get_user_details()
+
+    customer_log = Log(customer_id)
+    customer_log_history = customer_log.get_log_history()
+    
+    customer_accounts = Account(customer_id)
+    customer_current_account_info = customer_accounts.get_current_account_info()
+    customer_savings_account_info = customer_accounts.get_savings_account_info()
+    customer_accounts_info = customer_current_account_info + customer_savings_account_info
+
+    data = [customer_data[0], customer_log_history, customer_accounts_info]
+    return render_template('profile.html', data = data)
+
+
+@app.route('/signup/', methods=['POST','GET'])
 def signup():
     if request.method == 'POST':
         result = request.form
@@ -38,9 +56,9 @@ def signup():
 @app.route('/', methods = ['POST','GET'])
 def index():
     if request.method == 'POST':
-        login_string = login_system()
-        if(login_string == 'Successful Login'):
-            return render_template('profile.html')
+        customer_id = login_system()
+        if(customer_id != -1):
+            return redirect(url_for('profile', customer_id = customer_id))
         else:
             return render_template('index.html', message = login_string)
 
