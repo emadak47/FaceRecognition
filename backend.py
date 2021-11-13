@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request
-from src.utils import get_latest_customer_id
+from src.utils import get_latest_customer_id, get_user_id_from_email
 from face_capture import faceCapture
 from faces import login_system
 from train import train
@@ -56,11 +56,24 @@ def signup():
 @app.route('/', methods = ['POST','GET'])
 def index():
     if request.method == 'POST':
-        customer_id = login_system()
-        if(customer_id != -1):
-            return redirect(url_for('profile', customer_id = customer_id))
-        else:
-            return render_template('index.html', message = login_string)
+        if not request.form:  #face-id login
+            customer_id = login_system()
+            if(customer_id != -1):
+                return redirect(url_for('profile', customer_id = customer_id))
+            else:
+                return render_template('index.html', message = "Failed Login")
+        else:   #normal login
+            credentials = request.form
+            customer_id = get_user_id_from_email(credentials['email'])
+            if customer_id != -1:
+                customer = Customer(customer_id)
+                login = customer.get_login_details(credentials['email'], credentials['password'])
+                if login:
+                    return redirect(url_for('profile', customer_id = customer_id))
+                else:
+                    return render_template('index.html', message = "Failed Login")
+            else:
+                return render_template('index.html', message = "Failed Login")
 
     if request.args:
         message = request.args['message']

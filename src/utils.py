@@ -14,6 +14,19 @@ def get_user_id_from_name(name_first):
     else:
         return response[0]['customer_id']
 
+def get_user_id_from_email(email):
+    db = DB()
+    query = """
+            SELECT customer_id 
+            FROM Customer 
+            WHERE email = "{}";
+    """.format(email)
+    response = db.read(query)
+    if response is None:
+        return -1
+    else:
+        return response[0]['customer_id']
+
 
 def get_latest_customer_id():
     db = DB()

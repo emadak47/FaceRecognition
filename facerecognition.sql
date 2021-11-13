@@ -110,11 +110,11 @@ CREATE TABLE `Transaction`(
 
 -- INSERT DATA
 
-INSERT INTO `Customer` VALUES (1, "Aayush", "Batwara", "Aayush_Batwara", "1234Batwara", "Delhi", "Hennessy", "506", "India");
-INSERT INTO `Customer` VALUES (2, "Aditya", "Gupta", "Aditya_Gupta", "1234Gupta", "Oslo", "Brooklyn", "2033", "Norway");
-INSERT INTO `Customer` VALUES (3, "Emad", "Akhras", "Emad_Akhras", "1234Akhras", "Berlin", "Central", "1013", "Germany");
-INSERT INTO `Customer` VALUES (4, "Dhruv", "Aggarwal", "Dhruv_Aggarwal", "1234Aggarwal", "Rome", "Admiralty", "201", "Italy");
-INSERT INTO `Customer` VALUES (5, "Arnav", "Rajiv", "Arnav_Rajuv", "1234Rajiv", "Cairo", "Kwoloon", "810", "Egypt");
+INSERT INTO `Customer` VALUES (1, "Aayush", "Batwara", "Aayush_Batwara@hku.hk", "1234Batwara", "Delhi", "Hennessy", "506", "India");
+INSERT INTO `Customer` VALUES (2, "Aditya", "Gupta", "Aditya_Gupta@hku.hk", "1234Gupta", "Oslo", "Brooklyn", "2033", "Norway");
+INSERT INTO `Customer` VALUES (3, "Emad", "Akhras", "Emad_Akhras@hku.hk", "1234Akhras", "Berlin", "Central", "1013", "Germany");
+INSERT INTO `Customer` VALUES (4, "Dhruv", "Aggarwal", "Dhruv_Aggarwal@hku.hk", "1234Aggarwal", "Rome", "Admiralty", "201", "Italy");
+INSERT INTO `Customer` VALUES (5, "Arnav", "Rajiv", "Arnav_Rajiv@hku.hk", "1234Rajiv", "Cairo", "Kowloon", "810", "Egypt");
 
 INSERT INTO `Phone` VALUES (1, "324534");
 INSERT INTO `Phone` VALUES (1, "932312");
@@ -133,7 +133,7 @@ INSERT INTO `LogHistory` VALUES (5, "15:49:11", "1999-11-30");
 INSERT INTO `LogHistory` VALUES (3, "04:28:09", "1999-11-30");
 INSERT INTO `LogHistory` VALUES (2, "07:28:35", "2004-06-25");
 INSERT INTO `LogHistory` VALUES (4, "14:28:30", "2013-07-19");
-INSERT INTO `LogHistory` VALUES (1, "17:50:38", "2022-04-29");
+INSERT INTO `LogHistory` VALUES (1, "17:50:38", "2021-04-29");
 INSERT INTO `LogHistory` VALUES (5, "10:28:57", "2010-04-05");
 INSERT INTO `LogHistory` VALUES (4, "18:17:45", "2009-09-09");
 INSERT INTO `LogHistory` VALUES (2, "22:29:30", "2020-12-30");
