@@ -9,7 +9,11 @@ def get_user_id_from_name(name_first):
             WHERE name_first = "{}";
     """.format(name_first)
     response = db.read(query)
-    return response[0]['customer_id']
+    if response is None:
+        return -1
+    else:
+        return response[0]['customer_id']
+
 
 def get_latest_customer_id():
     db = DB()

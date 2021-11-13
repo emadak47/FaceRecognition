@@ -41,7 +41,7 @@ def login_system():
             id_, conf = recognizer.predict(roi_gray)
 
             #2.1 If the face is recognized
-            if conf >= 90:
+            if conf >= 60:
                 # print(id_)
                 # print(labels[id_])
                 font = cv2.QT_FONT_NORMAL
@@ -55,16 +55,19 @@ def login_system():
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), (2))
 
                 # Find the customer's information in the database.
+                print('Current Name' + current_name)
                 customer_id = get_user_id_from_name(current_name)
-                customer = Customer(customer_id)
-                response = customer.get_user_details()
 
                 # If the customer's information is not found in the database
-                if not len(response):
+                if customer_id == -1:
                     print("The customer", current_name, "is NOT FOUND in the database.")
 
                 # If the customer's information is found in the database
                 else:
+
+                    customer = Customer(customer_id)
+                    response = customer.get_user_details()
+
                     # Update the data in LogHistory
                     log = Log(customer_id)
                     log.insert_log()
