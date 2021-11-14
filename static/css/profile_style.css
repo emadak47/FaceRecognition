@@ -9,6 +9,22 @@ body {
     background-color: #f3f3f3;
 }
 
+.modal-content {
+    display: block;
+    z-index: 1;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+}
+
+.popup {
+    background: linear-gradient(to right, #6f419c, #ac34e3);
+    width: 250px;
+    height: 100px;
+    text-align: center;
+    padding: 20px;
+}
+
 .login-history-wrapper {
     position: absolute;
     display: flex;
