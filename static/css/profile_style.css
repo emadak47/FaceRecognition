@@ -30,6 +30,11 @@ body {
     color: #fff;
 }
 
+.login-history-wrapper .profile-link, .profile-link:hover, .profile-link:active, .profile-link:focus {
+    text-decoration: none;
+    color: inherit;
+}
+
 .login-history-wrapper .left img {
     border-radius: 50%;
     border: 1px solid;
@@ -95,7 +100,7 @@ body {
 }
 
 .login-history-wrapper .right {
-    width: 65%;
+    width: 60%;
     background: #fff;
     padding: 30px 25px;
     border-top-right-radius: 20px;
@@ -108,10 +113,9 @@ body {
 }
 
 .login-history-wrapper .right .bottom-bar {
-    padding-left: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 50px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
 }
 
 .bottom-bar button[type='submit'] {
@@ -120,11 +124,11 @@ body {
     border-radius: 50px;
     background: #ac34e3;
     color: #fff;
-    font-size: 90%;
+    font-size: 80%;
     font-weight: bold;
     letter-spacing: 0.1rem;
     transition: 0.5s;
-    padding: 12px;
+    padding: 10px;
     width: 100%;
     white-space: nowrap;
     text-align: center;
@@ -133,4 +137,8 @@ body {
 .bottom-bar button[type='submit']:hover {
     background: black;
     color: #ac34e3;
+}
+
+.bottom-bar .bottom-bar-home button[type='submit'] {
+    border-radius: 50px;
 }

@@ -14,10 +14,12 @@
 <body>
     <div class="login-history-wrapper">
         <div class="left">
-            <img src="../static/css/img.jpg" alt="user">
-            <h4 class="title text-center mt-4">
-                {{ data[0]['name_first'] }} {{ data[0]['name_last'] }}
-            </h4>
+            <a class="profile-link" href="{{ url_for('profile', customer_id = data[0]['customer_id']) }}">
+                <img src="../static/css/img.jpg" alt="user">
+                <h4 class="title text-center mt-4">
+                    {{ data[0]['name_first'] }} {{ data[0]['name_last'] }}
+                </h4>
+            </a>
             <h5>CUSTOMER</h5>
             <h5>(+852 {{ data[0]['phone_numbers'][0] }})</h5>
             <hr class="my-2">
@@ -79,6 +81,15 @@
                 </table>
             </div>
             <div class="bottom-bar my-5">
+                <div>
+                    <a href="{{ url_for('profile', customer_id = data[0]['customer_id']) }}">
+                        <div class="bottom-bar-home text-center">
+                            <button type="submit" class="btn btn-block text-uppercase">
+                                <span><i class="fa fa-home"></i> HOME </span>
+                            </button>
+                        </div>
+                    </a>
+                </div>
                 <div>
                     <div class="bottom-bar-settings text-center">
                         <button type="submit" class="btn btn-block text-uppercase">
