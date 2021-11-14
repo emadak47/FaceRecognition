@@ -33,6 +33,9 @@ def profile(customer_id):
     customer_accounts_info = customer_current_account_info + customer_savings_account_info
 
     data = [customer_data[0], customer_log_history, customer_accounts_info]
+    if request.args:
+        data.append({'message': True})
+        
     return render_template('profile.html', data = data)
 
 
@@ -70,7 +73,7 @@ def index():
         if not request.form:  #face-id login
             customer_id = login_system()
             if(customer_id != -1):
-                return redirect(url_for('profile', customer_id = customer_id))
+                return redirect(url_for('profile', customer_id = customer_id, message = True))
             else:
                 return render_template('index.html', message = "Failed Login")
         else:   #normal login
@@ -80,7 +83,7 @@ def index():
                 customer = Customer(customer_id)
                 login = customer.get_login_details(credentials['email'], credentials['password'])
                 if login:
-                    return redirect(url_for('profile', customer_id = customer_id))
+                    return redirect(url_for('profile', customer_id = customer_id, message = True))
                 else:
                     return render_template('index.html', message = "Failed Login")
             else:

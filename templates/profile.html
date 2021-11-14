@@ -12,18 +12,6 @@
 </head>
 
 <body>
-    <div >
-        <div class="modal-content popup" id="button">
-            <button type="button" class="btn-close"  onclick="hide()" aria-label="Close"></button>
-            Welcome to iKYC, {{ data[0]['name_first'] }} {{ data[0]['name_last'] }}
-        </div>
-        
-        <script type="text/javascript">
-           function hide() {
-            document.getElementById('button').style.display = 'none';
-        }
-        </script>
-    </div>
     <div class="login-history-wrapper">
         <div class="left">
             <a class="profile-link" href="{{ url_for('profile', customer_id = data[0]['customer_id']) }}">
@@ -71,30 +59,37 @@
             <h6 class="my-2">member since {{ data[1][-1]['login_date'] }} </h6>
         </div>
         <div class="right">
-            <div class="info">
-                <h2 class="bold text-center my-3">Account Information</h2>
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Branch</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Balance</th>
-                            <th scope="col">Currency</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for account in data[2] %}
-                        <tr>
-                            <th scope="row">{{ account['account_no'] }}</th>
-                            <td>{{ account['location'] }}</td>
-                            <td>{{ account['type'] }}</td>
-                            <td>{{ account['balance'] }}</td>
-                            <td>{{ account['currency'] }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="main-info">
+                {% if data[3] %}
+                <div class='login-banner'>
+                    <span>Welcome to iKYC, {{ data[0]['name_first'] }} {{ data[0]['name_last'] }}</span>
+                </div>
+                {% endif %}
+                <div class="info">
+                    <h2 class="bold text-center my-3">Account Information</h2>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">No.</th>
+                                <th scope="col">Branch</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Balance</th>
+                                <th scope="col">Currency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for account in data[2] %}
+                            <tr>
+                                <th scope="row">{{ account['account_no'] }}</th>
+                                <td>{{ account['location'] }}</td>
+                                <td>{{ account['type'] }}</td>
+                                <td>{{ account['balance'] }}</td>
+                                <td>{{ account['currency'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="bottom-bar my-5">
                 <div>
