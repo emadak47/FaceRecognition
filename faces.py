@@ -76,6 +76,8 @@ def login_system():
                     engine.say(hello)
                     # engine.runAndWait()
 
+                    cap.release()
+                    cv2.destroyAllWindows()
                     return customer_id
 
 
