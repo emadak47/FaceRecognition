@@ -8,6 +8,17 @@ from src.Log import Log
 from src.Account import Account
 app = Flask(__name__)
 
+@app.route('/login_history/<int:customer_id>')
+def login_history(customer_id):
+    customer = Customer(customer_id)
+    customer_data = customer.get_user_details()
+
+    customer_log = Log(customer_id)
+    customer_log_history = customer_log.get_log_history()
+
+    data = [customer_data[0], customer_log_history]
+    return render_template('login_history.html', data = data)
+
 @app.route('/profile/<int:customer_id>')
 def profile(customer_id):
     customer = Customer(customer_id)
