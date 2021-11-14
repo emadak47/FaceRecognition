@@ -51,23 +51,21 @@ class Account(DB):
 
     def get_current_account_info(self):
         query = """
-                SELECT A.account_no, B.location, 'Current' AS 'type', SUM(CA.balance) AS balance, 'HKD' AS currency
+                SELECT A.account_no, B.location, 'Current' AS 'type', CA.balance, 'HKD' AS currency
                 FROM Account A, Branch B, CurrentAccount CA
                 WHERE A.branch_id = B.branch_id
                 AND A.customer_id = {}
-                AND A.account_no = CA.account_no
-                GROUP BY CA.account_no;
+                AND A.account_no = CA.account_no;
         """.format(self.customer_id)
         return self.read(query)
 
     def get_savings_account_info(self):
         query = """
-                SELECT A.account_no, B.location, 'Savings' AS 'type', SUM(SA.balance) AS balance, SA.currency
+                SELECT A.account_no, B.location, 'Savings' AS 'type', SA.balance, SA.currency
                 FROM Account A, Branch B, SavingsAccount SA
                 WHERE A.branch_id = B.branch_id
                 AND A.customer_id = {}
-                AND A.account_no = SA.account_no
-                GROUP BY SA.account_no;
+                AND A.account_no = SA.account_no;
         """.format(self.customer_id)
         return self.read(query)
 
