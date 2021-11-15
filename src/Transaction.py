@@ -7,15 +7,40 @@ class Transaction(DB):
         DB.__init__(self)
         self.customer_id = customer_id
 
-    def get_tx(self):
+    def get_tx(self, data):
+        if (data["account"] != "All"):
+            query = """
+            SELECT M.business_type, M.name, T.amount
+            -- T.creation_time,
+            FROM Transaction T, Account A, Merchant M
+            WHERE T.merchant_id = M.merchant_id AND T.account_no = A.account_no AND A.customer_id = {}
+            AND T.amount >= {} AND T.amount <= {}
+            AND T.creation_date BETWEEN "{}" AND "{}"
+            AND A.account_no = {}
+            ORDER BY T.creation_date DESC, T.creation_time DESC;
+            """.format(self.customer_id, data["minAmount"], data["maxAmount"], data["minDate"], data["maxDate"], data["account"])
+        else:
+            query = """
+            SELECT M.business_type, M.name, T.amount
+            -- T.creation_time,
+            FROM Transaction T, Account A, Merchant M
+            WHERE T.merchant_id = M.merchant_id AND T.account_no = A.account_no AND A.customer_id = {}
+            AND T.amount >= {} AND T.amount <= {}
+            AND T.creation_date BETWEEN "{}" AND "{}"
+            ORDER BY T.creation_date DESC, T.creation_time DESC;
+            """.format(self.customer_id, data["minAmount"], data["maxAmount"], data["minDate"], data["maxDate"])
+
+        return self.read(query)
+
+    def get_tx_by_amount(self, data):
         query = """
-                SELECT T.account_no, T.merchant_id, T.amount, T.description, T.creation_date
-                -- T.creation_time,
-                FROM Transaction T, Account A
-                WHERE T.account_no = A.account_no AND
-                      A.customer_id = {}
-                ORDER BY T.creation_date DESC, T.creation_time DESC;
-        """.format(self.customer_id)
+        SELECT M.business_type, M.name, T.amount
+        -- T.creation_time,
+        FROM Transaction T, Account A, Merchant M
+        WHERE T.merchant_id = M.merchant_id AND T.account_no = A.account_no AND A.customer_id = {}
+        AND T.amount >= {} AND T.amount <= {}
+        ORDER BY T.creation_date DESC, T.creation_time DESC;
+        """.format(self.customer_id, data["minAmount"], data["maxAmount"])
         return self.read(query)
 
     def get_tx_by_day(self, day):

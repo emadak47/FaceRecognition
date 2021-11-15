@@ -94,27 +94,38 @@ def index():
     else:
         return render_template('index.html')
 
-@app.route('/transactions', methods = ['POST','GET'])
-def transactions():
-    return render_template('transactions.html')
+@app.route('/transactions/<int:customer_id>', methods = ['POST','GET'])
+def transactions(customer_id):
+    customer_log = Log(customer_id)
+    customer = Customer(customer_id)
+    customer_data = customer.get_user_details()
+    customer_log_history = customer_log.get_log_history()
+    data = [customer_data[0], customer_log_history]
+    print(data[0])
+    return render_template('transactions.html', data = data)
 
-@app.route('/transactionsBackend', methods=['GET', 'POST'])
-def retreiveTxData():
+@app.route('/transactionsBackend/<int:customer_id>', methods=['GET', 'POST'])
+def retreiveTxData(customer_id):
     # GET request
     if request.method == 'GET':
-        newTransaction = Transaction(1) #using customer_id = 1 for testing
-        transactions = newTransaction.get_tx()
-        print(transactions)
-
-        # return {'data':[{'data1':'hello'}, {'data2':'bye'}]}
+        newTransaction = Transaction(customer_id)
+        transactions = newTransaction.get_tx_by_amount({"test":"value"});
         return {'data':transactions}
-        message = [{'greeting':'Hello from Flask!'}]
-        return message # serialize and use JSON headers
 
     # POST request
-    if request.method == 'POST': #this doesn't do anything
-        print(request.get_json())  # parse as JSON
-        return 'Sucesss', 200
+    if request.method == 'POST':
+        data = request.get_json()
+        newTransaction = Transaction(customer_id)
+        transactions = newTransaction.get_tx(data);
+        return {'data':transactions}
+
+@app.route('/getAccounts/<int:customer_id>', methods=['GET', 'POST'])
+def getAccountsAndTypes(customer_id):
+    if request.method == 'POST':
+        customer_accounts = Account(customer_id)
+        accountTypes = customer_accounts.get_accounts_and_type()
+        return {'data': accountTypes}
+
 
 if __name__ == '__main__':
     app.run(debug = True)
