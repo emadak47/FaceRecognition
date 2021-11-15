@@ -8,7 +8,7 @@
     <title>COMP 3278 Face Recognition Sign In Page</title>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/index_style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/index_style_signup.css') }}">
 </head>
 
 <body>
@@ -23,7 +23,23 @@
                     <form class="form-box px-3" action="" method="POST">
                         <div class="form-input">
                             <span><i class="fa fa-user-o"></i></span>
-                            <input type="text" name="name" placeholder="Name" tabindex="10">
+                            <input type="text" name="name" placeholder="Full Name" tabindex="10">
+                        </div>
+                        <div class="form-input">
+                            <span><i class="fa fa-globe"></i></span>
+                            <input type="text" name="country" placeholder="Country" tabindex="10">
+                        </div>
+                        <div class="form-input">
+                            <span><i class="fa fa-building"></i></span>
+                            <input type="text" name="city" placeholder="City" tabindex="10">
+                        </div>
+                        <div class="form-input">
+                            <span><i class="fa fa-road"></i></span>
+                            <input type="text" name="street" placeholder="Street" tabindex="10">
+                        </div>
+                        <div class="form-input">
+                            <span><i class="fa fa-home"></i></span>
+                            <input type="text" name="apartment" placeholder="Apartment" tabindex="10">
                         </div>
                         <div class="form-input">
                             <span><i class="fa fa-envelope-o"></i></span>
@@ -31,7 +47,7 @@
                         </div>
                         <div class="form-input">
                             <span><i class="fa fa-key"></i></span>
-                            <input type="password" name="" placeholder="Password">
+                            <input type="password" name="password" placeholder="Password">
                         </div>
 
                         <div class="mb-3">
