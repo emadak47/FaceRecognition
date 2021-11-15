@@ -17,7 +17,7 @@
             <button type="button" class="btn-close"  onclick="hide()" aria-label="Close"></button>
             Welcome to iKYC, {{ data[0]['name_first'] }} {{ data[0]['name_last'] }}
         </div>
-        
+
         <script type="text/javascript">
            function hide() {
             document.getElementById('button').style.display = 'none';
@@ -115,7 +115,7 @@
                 </div>
                 <div>
                     <div class="bottom-bar-transactions text-center">
-                        <button type="submit" class="btn btn-block text-uppercase">
+                        <button type="submit" class="btn btn-block text-uppercase" onclick="window.location.pathname='/transactions/' +  {{data[0]['customer_id']}}">
                             transactions
                         </button>
                     </div>

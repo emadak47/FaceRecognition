@@ -105,7 +105,6 @@ def transactions(customer_id):
     customer_data = customer.get_user_details()
     customer_log_history = customer_log.get_log_history()
     data = [customer_data[0], customer_log_history]
-    print(data[0])
     return render_template('transactions.html', data = data)
 
 @app.route('/transactionsBackend/<int:customer_id>', methods=['GET', 'POST'])
