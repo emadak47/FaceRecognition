@@ -19,6 +19,18 @@ def login_history(customer_id):
     data = [customer_data[0], customer_log_history]
     return render_template('login_history.html', data = data)
 
+@app.route('/account_settings/<int:customer_id>')
+def account_settings(customer_id):
+    customer = Customer(customer_id)
+    customer_data = customer.get_user_details()
+
+    customer_log = Log(customer_id)
+    customer_log_history = customer_log.get_log_history()
+
+    data = [customer_data[0], customer_log_history]
+    return render_template('account_settings.html', data = data)
+
+
 @app.route('/profile/<int:customer_id>')
 def profile(customer_id):
     customer = Customer(customer_id)

@@ -30,7 +30,10 @@ body {
     color: #fff;
 }
 
-.login-history-wrapper .profile-link, .profile-link:hover, .profile-link:active, .profile-link:focus {
+.login-history-wrapper .profile-link,
+.profile-link:hover,
+.profile-link:active,
+.profile-link:focus {
     text-decoration: none;
     color: inherit;
 }
@@ -141,4 +144,41 @@ body {
 
 .bottom-bar .bottom-bar-home button[type='submit'] {
     border-radius: 50px;
+}
+
+.edit-box {
+    width: 100%;
+    height: 30px;
+    padding-left: 40px;
+    box-sizing: border-box;
+    box-shadow: none;
+    border: 0.5px solid #00000020;
+    border-radius: 50px;
+    outline: none;
+    background: transparent;
+}
+
+.edit-box::placeholder {
+    color: #ac34e3;
+}
+
+.edit-box:focus,
+.edit-box:valid {
+    border: 1px solid #ac34e3;
+}
+
+.edit-button {
+    border: transparent;
+    border-radius: 50px;
+    background: #ac34e3;
+    color: #fff;
+    font-size: 60%;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    transition: 0.5s;
+    padding: 8px;
+    width: 100%;
+    height: 70%;
+    white-space: nowrap;
+    text-align: center;
 }
