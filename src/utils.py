@@ -17,8 +17,8 @@ def get_user_id_from_name(name_first):
 def get_user_id_from_email(email):
     db = DB()
     query = """
-            SELECT customer_id 
-            FROM Customer 
+            SELECT customer_id
+            FROM Customer
             WHERE email = "{}";
     """.format(email)
     response = db.read(query)
@@ -35,4 +35,14 @@ def get_latest_customer_id():
             FROM Customer;
     """
     response = db.read(query)
-    return response[0]['Latest'] + 1 #THE PROBLEM IS HERE! I need to link w my database
+    return response[0]['Latest'] + 1
+
+
+def get_latest_account_no():
+    db = DB()
+    query = """
+            SELECT MAX(account_no) AS Latest
+            FROM Account;
+    """
+    response = db.read(query)
+    return response[0]['Latest'] + 1
