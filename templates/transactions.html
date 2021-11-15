@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMP 3278 Face Recognition Sign In Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/profile_style.css') }}">
+    <script src="{{ url_for('static', filename = 'js/transactions_script.js') }}"></script>
+</head>
+
+<body>
+    <div class="login-history-wrapper">
+        <div class="left">
+            <img src="./static/css/img.jpg" alt="user">
+            <h4 class="title text-center mt-4">
+                {{name}}
+            </h4>
+            <h5>CUSTOMER | MERCHANT (shoes)</h5>
+            <h5>(+852 1234 2345)</h5>
+            <hr class="my-2">
+            <div class="branch">CENTRAL BRANCH</div>
+            <div class="accounts">
+                <div>Savings Account $10,000</div>
+                <div>Current Account $10,000</div>
+            </div>
+            <hr class="my-2">
+            <div class="address-title">
+                <center>ADDRESS</center>
+            </div>
+            <div class="address">
+                <div>
+                    <div><u>City</u></div>
+                    <div>Hong Kong</div>
+                </div>
+                <div>
+                    <div><u>Street</u></div>
+                    <div>Queens Road</div>
+                </div>
+                <div>
+                    <div><u>Flat Number</u></div>
+                    <div>Z69</div>
+                </div>
+                <div>
+                    <div><u>Country</u></div>
+                    <div>Hong Kong, China</div>
+                </div>
+            </div>
+            <h6 class="my-2">member since 20 January, 2021 </h6>
+        </div>
+        <div class="right">
+            <div class="info">
+                <h2 class="bold text-center my-3">Transactions</h2>
+                <div class="filters">
+                  <form>
+                    <div class="row row-filtering" id="amount">
+                      <div class="col col-labels">
+                        <label>Amount</label>
+                      </div>
+                      <div class="col">
+                        <input type="number" class="form-control" id="minAmount" placeholder="Min Amount">
+                      </div>
+                      <div class="col">
+                        <input type="number" class="form-control" id="maxAmount" placeholder="Max Amount">
+                      </div>
+                    </div>
+                    <div class="row row-filtering" id="date">
+                      <div class="col col-labels">
+                        <label>Date</label>
+                      </div>
+                      <div class="col date-col" id="minDateCol">
+                        <input type="text" class="form-control date-filtering" id="minDate" placeholder="Start Date">
+                      </div>
+                      <div class="col date-col">
+                        <input type="text" class="form-control date-filtering" id="maxDate" placeholder="End Date">
+                      </div>
+                    </div>
+                    <div class="row row-filtering" id="time">
+                      <div class="col col-labels">
+                        <label>Time</label>
+                      </div>
+                      <div class="col date-col" id="minDateCol">
+                        <input type="time" class="form-control date-filtering" id="minTime" placeholder="Start Time">
+                      </div>
+                      <div class="col date-col">
+                        <input type="time" class="form-control date-filtering" id="maxTime" placeholder="End Time">
+                      </div>
+                    </div>
+                    <div class="bottom-bar" style="margin:1rem">
+                        <div>
+                          <div class="bottom-bar-transactions text-center">
+                              <button type="reset" class="btn btn-block text-uppercase" id ="reset">
+                                Reset
+                              </button>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="bottom-bar-settings text-center">
+                              <button type="submit" class="btn btn-block text-uppercase" id ="filter">
+                                Filter
+                              </button>
+                          </div>
+                        </div>
+                    </div>
+                    <!-- <div class="text-center" style="margin:1rem">
+                      <button class="bottom barbtn btn-primary" type="submit" style="margin-left: 1rem; background-color: #ac34e3">Filter</button>
+                      <button class="btn btn-primary" type="reset">Reset</button>
+
+                    </div> -->
+                  </form>
+                </div>
+
+
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Merchant</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionTable">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery (Bootstrap JS plugins depend on it) -->
+    <script src="{{ url_for('static', filename = 'js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/index_script.js') }}"></script>
+</body>
+
+</html>

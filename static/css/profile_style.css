@@ -158,3 +158,46 @@ body {
 .bottom-bar .bottom-bar-home button[type='submit'] {
     border-radius: 50px;
 }
+
+.col-labels {
+  text-align:center;
+  margin-top: auto;
+  flex: 0.5 0 0%;
+  margin-bottom: auto;
+}
+
+.row-filtering{
+  margin-top: 0.5rem;
+}
+
+.date-col{
+  /* flex: 0.5 0 0%; */
+}
+
+input[type=""date]{
+  font-size: 10px;
+}
+.date-filtering input[type='date']{
+  font-size: 10px
+}
+
+.bottom-bar button[type='reset'] {
+    margin-top: 10px;
+    border: transparent;
+    border-radius: 50px;
+    background: #ac34e3;
+    color: #fff;
+    font-size: 90%;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    transition: 0.5s;
+    padding: 12px;
+    width: 100%;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.bottom-bar button[type='reset']:hover {
+    background: black;
+    color: #ac34e3;
+}
