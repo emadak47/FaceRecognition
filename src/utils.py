@@ -36,3 +36,13 @@ def get_latest_customer_id():
     """
     response = db.read(query)
     return response[0]['Latest'] + 1
+
+
+def get_latest_account_no():
+    db = DB()
+    query = """
+            SELECT MAX(account_no) AS Latest
+            FROM Account;
+    """
+    response = db.read(query)
+    return response[0]['Latest'] + 1

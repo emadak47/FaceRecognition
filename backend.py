@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request
-from src.utils import get_latest_customer_id, get_user_id_from_email
+from src.utils import get_latest_customer_id, get_user_id_from_email, get_latest_account_no
 from face_capture import faceCapture
 from faces import login_system
 from train import train
@@ -40,25 +40,29 @@ def profile(customer_id):
 def signup():
     if request.method == 'POST':
         result = request.form
-        username = result['name']
 
-        faceCapture(username, 100)
-        train()
+        # faceCapture(result['name'].split()[0], 100)
+        # train()
 
         customer_id = get_latest_customer_id()
         customer = Customer(customer_id)
-        # customer.insert_new_user(
-        #     name_first,
-        #     name_last,
-        #     email,
-        #     password,
-        #     address_city, 
-        #     address_street,
-        #     address_flat_no,
-        #     address_country
-        # )
+        customer.insert_new_user(
+            result['name'].split()[0],
+            result['name'].split()[1],
+            result['email'],
+            result['password'],
+            result['city'], 
+            result['street'],
+            result['apartment'],
+            result['country']
+        )
+
         log = Log(customer_id)
         log.insert_log()
+
+        account_id = get_latest_account_no()
+        account = Account(customer_id)
+        account.insert_new_account(account_id)
 
         return redirect(url_for('index', message = "Signed Up successfully"))
 

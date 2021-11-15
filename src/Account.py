@@ -69,4 +69,29 @@ class Account(DB):
         """.format(self.customer_id)
         return self.read(query)
 
-    
+    def insert_new_account(self, account_no):
+        query1 = """
+                INSERT INTO `Account` VALUES ({}, {}, {});
+        """.format(
+            account_no,
+            self.customer_id,
+            2
+        )
+        self.write(query1)
+
+        query2 = """
+                INSERT INTO `SavingsAccount` VALUES ({}, {}, "{}");
+        """.format(
+            account_no, 
+            0,
+            "HKD"
+        )
+        self.write(query2)
+
+        query3 = """
+                INSERT INTO `CurrentAccount` VALUES ({}, {});
+        """.format(
+            account_no,
+            0
+        )
+        self.write(query3)
