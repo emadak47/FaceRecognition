@@ -102,11 +102,13 @@
                     </a>
                 </div>
                 <div>
-                    <div class="bottom-bar-settings text-center">
-                        <button type="submit" class="btn btn-block text-uppercase">
-                            Account Settings
-                        </button>
-                    </div>
+                    <a href="{{ url_for('account_settings', customer_id = data[0]['customer_id']) }}">
+                        <div class="bottom-bar-settings text-center">
+                            <button type="submit" class="btn btn-block text-uppercase">
+                                Account Settings
+                            </button>
+                        </div>
+                    </a>
                 </div>
                 <div>
                     <div class="bottom-bar-transactions text-center">

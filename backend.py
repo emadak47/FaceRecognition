@@ -19,9 +19,23 @@ def login_history(customer_id):
     data = [customer_data[0], customer_log_history]
     return render_template('login_history.html', data = data)
 
-@app.route('/account_settings/<int:customer_id>')
+@app.route('/account_settings/<int:customer_id>' ,methods=['POST','GET'])
 def account_settings(customer_id):
     customer = Customer(customer_id)
+    if request.method == 'POST':
+        result = request.form
+        customer.edit_user_details(
+            result['email'],
+            result['password'],
+            result['address_flat_no'],
+            result['address_street'],
+            result['address_city'],
+            result['address_country']
+        )
+        phone_numbers = result['phone_numbers'].split()
+        customer.edit_user_phone(phone_numbers)
+        
+
     customer_data = customer.get_user_details()
 
     customer_log = Log(customer_id)
