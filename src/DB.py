@@ -12,16 +12,9 @@ db_config = {
         'database': os.getenv('MYSQL_DB')
     }
 
-db_config_heroku = {
-        'host' : 'us-cdbr-east-04.cleardb.com', 
-        'user': 'beb5c38bddd99e',
-        'password' : '26328889',
-        'database' : 'heroku_12ebac061f78d2f'
-    }
-
 class DB:
     def __init__(self):
-        self.config = db_config_heroku
+        self.config = db_config
 
     def connect(self):
         try:
