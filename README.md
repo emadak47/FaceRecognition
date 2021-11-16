@@ -67,3 +67,7 @@ When signing up as new users, there will be no accounts or transactions to displ
 4. Login with Face ID
 5. You should login as `Aayush Batwara`
 
+## ER Diagram
+
+![Database ER Diagram](src/er_diagram.jpeg)
+
