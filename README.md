@@ -7,8 +7,8 @@ Face recognition using python and mysql.
 ## Usage
 
 ### Repository
-1. Clone repository (https://github.com/emadak47/FaceRecognition/edit/main/README.md)
-2. Launch terminal and change directory into the cloned repository
+Clone repository (https://github.com/emadak47/FaceRecognition/edit/main/README.md)
+Launch terminal and change directory into the cloned repository
 
 ### MySQL Install
 
