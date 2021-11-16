@@ -69,7 +69,7 @@ def faceCapture(user_name, num_images):
 
 
 if __name__ == '__main__':
-    user_name = "aayush920"
+    user_name = "Aayush"
     num_images = 400
 
     faceCapture(user_name, num_images)
