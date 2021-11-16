@@ -36,7 +36,7 @@ def account_settings(customer_id):
         )
         phone_numbers = result['phone_numbers'].split()
         customer.edit_user_phone(phone_numbers)
-        
+
 
     customer_data = customer.get_user_details()
 
@@ -63,7 +63,7 @@ def profile(customer_id):
     data = [customer_data[0], customer_log_history, customer_accounts_info]
     if request.args:
         data.append({'message': True})
-        
+
     return render_template('profile.html', data = data)
 
 
@@ -127,14 +127,20 @@ def index():
     else:
         return render_template('index.html')
 
+@app.route('/transactions/<int:customer_id>/<int:account_no>', methods = ['POST','GET'])
+def transactionsWithAccount(customer_id, account_no):
+    return redirect(url_for('transactions', customer_id = customer_id, account_no=account_no) )
+
 @app.route('/transactions/<int:customer_id>', methods = ['POST','GET'])
-def transactions(customer_id):
+def transactions(customer_id, account_no=None):
     customer_log = Log(customer_id)
     customer = Customer(customer_id)
     customer_data = customer.get_user_details()
     customer_log_history = customer_log.get_log_history()
     data = [customer_data[0], customer_log_history]
+
     return render_template('transactions.html', data = data)
+
 
 @app.route('/transactionsBackend/<int:customer_id>', methods=['GET', 'POST'])
 def retreiveTxData(customer_id):

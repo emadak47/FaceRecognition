@@ -166,10 +166,11 @@ input[type=""date]{
 }
 
 .table{
+  font-size: 12px;
   overflow-y: scroll;
-  height: 180px;
+  height: 150px;
   display: block;
-  width: 375px;
+  width: fit-content;
   margin-left: auto;
   margin-right: auto;
 }
