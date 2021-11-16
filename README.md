@@ -35,7 +35,9 @@ conda activate face
 pip install -r requirements.txt
 ```
 ### Run
-9. Enter `python backend.py`
+9. Switch to folder with unzipped files
+10. Enter `python backend.py`
+11. Go to `http://127.0.0.1:5000/`
 
 ## Usage
 ### Functionality
@@ -47,7 +49,7 @@ pip install -r requirements.txt
 
 ### Sign-up
 1. From the homepage, new users can sign up by clicking `Register here`
-2. Fill in all the fields (note: Full name must include first and last name)
+2. Fill in all the fields (Note: Full name must include first and last name, and first names should be unique for all users)
 3. The application will automatically capture your face for the Face ID login feature
 
 ### Log-in
