@@ -1,50 +1,40 @@
 # Face Recognition
 
-Face recognition using python and mysql.
+Face recognition using Python and MySQL, using Flask as a web framework
 
 *******
 
 ## Usage
 
-### Repository
-1. Clone repository (https://github.com/emadak47/FaceRecognition/edit/main/README.md)
-2. Launch terminal and change directory into the cloned repository
+### Source files
+1. Download and unzip the source files
+2. Launch terminal and change directory into the new folder
 
-### MySQL Install
+### MySQL Database setup
+3. Access mySQL database locally (using `mysql -u root -p`)
+4. Enter the password
+5. Enter the following commands:
+```
+CREATE DATABASE facerecognition;
+USE facerecognition;
+source facerecognition.sql
+```
+### .env File
+5. Duplicate the .env.template file
+6. Enter this new file and fill in the all of the details. 
 
-[Mac](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/macos-installation.html)
+Note: `MYSQL_HOST` is likely to be `'localhost'` and `MYSQL_DB` must be `'facerecognition'`
 
-[Ubuntu](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/linux-installation.html)
-
-[Windows](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/windows-installation.html)
-
-You'll obtain an account and password after installation, then you should modify the `.env` file, with the corresponding
-`user` and `passwd`:
+7. Rename this file to `.env`
 
 ### Environment
-
-Create virtual environment using Anaconda.
+8. Enter the following commands. Note that the `x` must be replaced in `python=3.x`
 ```
 conda create -n face python=3.x
 conda activate face
 pip install -r requirements.txt
 ```
-
-### MySQL Install
-
-[Mac](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/macos-installation.html)
-
-[Ubuntu](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/linux-installation.html)
-
-[Windows](https://dev.mysql.com/doc/mysql-installation-excerpt/5.7/en/windows-installation.html)
-
-You'll obtain an account and password after installation, then you should modify the `.env` file, with the corresponding
-`user` and `passwd`:
-
-*******
-
-## Run
-
-### 1. Face Recognition
+### Run
+9. Enter `python backend.py`
 
 
