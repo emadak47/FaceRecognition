@@ -52,7 +52,7 @@ pip install -r requirements.txt
 
 ### Log-in
 #### Option 1: Email and password
-From the home page, you can enter a valid email and password combination to login
+From the home page, you can enter a valid email and password combination to login. (refer to the Customer table in MySQL for login IDs)
 #### Option 2: Face ID
 You can also use your face ID to login. However, your face must have been captured and the data must have been trained beforehand. 
 
