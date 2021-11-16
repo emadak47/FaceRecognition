@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMP 3278 Face Recognition Sign In Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/transactions_style.css') }}">
+    <script src="{{ url_for('static', filename = 'js/transactions_script.js') }}"></script>
+</head>
+
+<body>
+    <div class="login-history-wrapper">
+      <div class="left">
+          <a class="profile-link" href="{{ url_for('profile', customer_id = data[0]['customer_id']) }}">
+              <img src="../static/css/img.jpg" alt="user">
+              <h4 class="title text-center mt-4">
+                  {{ data[0]['name_first'] }} {{ data[0]['name_last'] }}
+              </h4>
+          </a>
+          <h5>CUSTOMER</h5>
+          <h5>(+852 {{ data[0]['phone_numbers'][0] }})</h5>
+          <hr class="my-2">
+          <div class='login-history-heading'>
+              <span class="last-login">Last Login</span>
+              <a class="login-history-link"
+                  href="{{ url_for('login_history', customer_id = data[0]['customer_id']) }}">
+                  <span><i class="fa fa-history"></i></span>
+              </a>
+          </div>
+          <div class="login-info">
+              <div>Login Time: {{ data[1][0]['login_time'] }}</div>
+              <div>Login Date: {{ data[1][0]['login_date'] }}</div>
+          </div>
+          <hr class="my-2">
+          <div class="address-title">
+              <center>ADDRESS</center>
+          </div>
+          <div class="address">
+              <div>
+                  <div><u>City</u></div>
+                  <div>{{ data[0]['address_city'] }}</div>
+              </div>
+              <div>
+                  <div><u>Street</u></div>
+                  <div>{{ data[0]['address_street'] }}</div>
+              </div>
+              <div>
+                  <div><u>Flat Number</u></div>
+                  <div>{{ data[0]['address_flat_no'] }}</div>
+              </div>
+              <div>
+                  <div><u>Country</u></div>
+                  <div>{{ data[0]['address_country'] }}</div>
+              </div>
+          </div>
+          <h6 class="my-2">member since {{ data[1][-1]['login_date'] }} </h6>
+      </div>
+    <div class="right">
+            <div class="info">
+                <h2 class="bold text-center my-3">Transactions</h2>
+
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Type</th>
+                            <th scope="col">Merchant</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Desc.</th>
+                            <th scope="col">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody class = "tableBody" id="transactionTable">
+                    </tbody>
+                </table>
+
+                <div class="filters">
+                  <form>
+                    <div class="row row-filtering" id="amount">
+                      <div class="col col-labels">
+                        <label>Amount</label>
+                      </div>
+                      <div class="col">
+                        <input type="number" class="form-control" id="minAmount" placeholder="Min Amount">
+                      </div>
+                      <div class="col">
+                        <input type="number" class="form-control" id="maxAmount" placeholder="Max Amount">
+                      </div>
+                    </div>
+                    <div class="row row-filtering" id="date">
+                      <div class="col col-labels">
+                        <label>Date</label>
+                      </div>
+                      <div class="col date-col" id="minDateCol">
+                        <input type="text" class="form-control date-filtering" id="minDate" placeholder="Start Date">
+                      </div>
+                      <div class="col date-col">
+                        <input type="text" class="form-control date-filtering" id="maxDate" placeholder="End Date">
+                      </div>
+                    </div>
+                    <div class="row row-filtering" id="time">
+                      <div class="col col-labels">
+                        <label>Time</label>
+                      </div>
+                      <div class="col date-col" id="minDateCol">
+                        <input type="time" class="form-control date-filtering" id="minTime" placeholder="Start Time">
+                      </div>
+                      <div class="col date-col">
+                        <input type="time" class="form-control date-filtering" id="maxTime" placeholder="End Time">
+                      </div>
+                    </div>
+
+                    <div class="row row-filtering" id="account">
+                      <div class="col col-labels">
+                        <label>Account</label>
+                      </div>
+                      <div class="col date-col" style="flex: 2.2 0 0%">
+                        <select class="form-control" id="accountsDropdown">
+                        </select>
+                      </div>
+                      <div style="display: none">{{data}}</div>
+                    </div>
+
+                    <div class="bottom-bar" style="margin:0.5rem 0rem 0rem 0rem; padding: 0rem;">
+                        <div class="bottom-bar-home text-center">
+                            <button type="submit" class="btn btn-block text-uppercase" onclick="window.location.pathname='/profile/' +  {{data[0]['customer_id']}}">
+                                <span><i class="fa fa-home"></i> HOME </span>
+                            </button>
+                        </div>
+                        <div>
+                          <div class="bottom-bar-transactions text-center">
+                              <button type="reset" class="btn btn-block text-uppercase" id ="reset">
+                                Reset
+                              </button>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="bottom-bar-settings text-center">
+                              <button type="submit" class="btn btn-block text-uppercase" id ="filter">
+                                Filter
+                              </button>
+                          </div>
+                        </div>
+                    </div>
+                    <!-- <div class="text-center" style="margin:1rem">
+                      <button class="bottom barbtn btn-primary" type="submit" style="margin-left: 1rem; background-color: #ac34e3">Filter</button>
+                      <button class="btn btn-primary" type="reset">Reset</button>
+
+                    </div> -->
+                  </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- jQuery (Bootstrap JS plugins depend on it) -->
+    <script src="{{ url_for('static', filename = 'js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/index_script.js') }}"></script>
+</body>
+
+</html>

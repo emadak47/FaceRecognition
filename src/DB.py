@@ -1,20 +1,28 @@
+import os
 import mysql.connector
 from mysql.connector import errorcode
 from dotenv import load_dotenv
 load_dotenv()
 
+db_config = {
+        'host': os.getenv('MYSQL_HOST'),
+        'user': os.getenv('MYSQL_USER'),
+        'password': os.getenv('MYSQL_PASSWORD'),
+        'database': os.getenv('MYSQL_DB')
+    }
+
 class DB:
-    def __init__(self, db_config):
+    def __init__(self):
         self.config = db_config
 
     def connect(self):
         try:
             self.cnx = mysql.connector.connect(**self.config)
-            self.cursor = self.cnx.cursor()
+            self.cursor = self.cnx.cursor(dictionary=True)
             #print("Connection Successful")
             #print("Connected to {}".format(self.config['database']))
             return True
-            
+
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
                 print("User authorization error")
@@ -23,14 +31,14 @@ class DB:
             else:
                 print(err)
             return False
-    
+
     def disconnect(self):
         if self.cnx.is_connected():
             self.cursor.close()
             self.cnx.close()
             #print("Connection closed")
 
-    # use try and catch for fetching and execution 
+    # use try and catch for fetching and execution
     def read(self, query):
         if self.connect():
             try:
@@ -44,7 +52,7 @@ class DB:
         else:
             print("Connection Failed")
 
-    # catch and report error 
+    # catch and report error
     def write(self, query):
         if self.connect():
             try:
@@ -58,4 +66,4 @@ class DB:
                 self.disconnect()
                 return False
         else:
-            print("Connection Failed") 
+            print("Connection Failed")

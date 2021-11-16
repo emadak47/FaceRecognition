@@ -6,7 +6,10 @@ import pickle
 from dotenv import load_dotenv
 load_dotenv()
 
-def train(base_dir, image_dir):
+def train():
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    image_dir = os.path.join(base_dir, "data")
+
     # Load the OpenCV face recognition detector Haar
     face_cascade = cv2.CascadeClassifier(
         os.path.join(base_dir, 'haarcascade/haarcascade_frontalface_default.xml')
@@ -61,7 +64,4 @@ def train(base_dir, image_dir):
     recognizer.save("train.yml")
 
 if __name__ == '__main__':
-    base_dir = os.getenv("BASE_DIR")
-    image_dir = os.path.join(base_dir, "data")
-    
-    train(base_dir, image_dir)
+    train()

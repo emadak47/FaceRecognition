@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMP 3278 Face Recognition Sign In Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/index_style_signup.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row px-3">
+            <div class="col-lg-10 col-xl-9 card flex-row mx-auto px-0">
+                <div class="img-left d-none d-md-flex"></div>
+                <div class="card-body">
+                    <h4 class="title text-center mt-4">
+                        Sign up to iKYC
+                    </h4>
+                    <form class="form-box px-3" action="" method="POST">
+                        <div class="form-input">
+                            <span><i class="fa fa-user-o"></i></span>
+                            <input type="text" name="name" placeholder="Full Name" tabindex="10">
+                        </div>
+                        <div class="form-input">
+                            <span><i class="fa fa-globe"></i></span>
+                            <input type="text" name="country" placeholder="Country" tabindex="10">
+                        </div>
+                        <div class="form-input">
+                            <span><i class="fa fa-building"></i></span>
+                            <input type="text" name="city" placeholder="City" tabindex="10">
+                        </div>
+                        <div class="form-input">
+                            <span><i class="fa fa-road"></i></span>
+                            <input type="text" name="street" placeholder="Street" tabindex="10">
+                        </div>
+                        <div class="form-input">
+                            <span><i class="fa fa-home"></i></span>
+                            <input type="text" name="apartment" placeholder="Apartment" tabindex="10">
+                        </div>
+                        <div class="form-input">
+                            <span><i class="fa fa-envelope-o"></i></span>
+                            <input type="email" name="email" placeholder="Email Address" tabindex="10">
+                        </div>
+                        <div class="form-input">
+                            <span><i class="fa fa-key"></i></span>
+                            <input type="password" name="password" placeholder="Password">
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-block text-uppercase">
+                                Sign Up
+                            </button>
+                        </div>
+                        <hr class="my-4">
+                    </form>
+                    <!-- jQuery (Bootstrap JS plugins depend on it) -->
+                    <script src="{{ url_for('static', filename = 'js/jquery-3.6.0.min.js') }}"></script>
+                    <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
+                    <script src="{{ url_for('static', filename = 'js/index_script.js') }}"></script>
+</body>
+
+</html>
