@@ -115,6 +115,8 @@ def index():
                 customer = Customer(customer_id)
                 login = customer.get_login_details(credentials['email'], credentials['password'])
                 if login:
+                    log = Log(customer_id)
+                    log.insert_log()
                     return redirect(url_for('profile', customer_id = customer_id, message = True))
                 else:
                     return render_template('index.html', message = "Failed Login")
