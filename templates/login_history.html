@@ -101,7 +101,8 @@
                 </div>
                 <div>
                     <div class="bottom-bar-transactions text-center">
-                        <button type="submit" class="btn btn-block text-uppercase">
+                        <button type="submit" class="btn btn-block text-uppercase"
+                            onclick=" window.location.pathname='/transactions/' + {{data[0]['customer_id']}}">
                             transactions
                         </button>
                     </div>

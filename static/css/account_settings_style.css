@@ -75,6 +75,10 @@ body {
     overflow-y: auto;
 }
 
+.login-history-wrapper .login-info .table {
+    color: white;
+}
+
 .login-history-wrapper .login-history-link {
     font-size: 13px;
     color: white;
