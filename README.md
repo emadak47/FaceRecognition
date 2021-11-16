@@ -40,13 +40,15 @@ pip install -r requirements.txt
 ## Usage
 ### Functionality
 - Face ID login: Users can train a model to recognize their face and then use the Face ID login option
-- Sign-up (EXTRA feature): New users can enter their details and gain access to the app
-- Change account details (EXTRA feature): All users can change their account details like phone number, password and address information
 - View and filter transactions: Transactions of users can be filtered based on account, date, time and amount
 - View account balances and details: Users can view their account balances 
+- [EXTRA feature] Sign-up: New users can enter their details and gain access to the app
+- [EXTRA feature] Change account details: All users can change their account details like phone number, password and address information
 
 ### Sign-up
-From the homepage, new users can sign up by clicking `Register here`. After filling all the fields (Note: Full name must include first and last name), the application will automatically capture your face for the Face ID login feature. 
+1. From the homepage, new users can sign up by clicking `Register here`
+2. Fill in all the fields (note: Full name must include first and last name)
+3. The application will automatically capture your face for the Face ID login feature
 
 ### Log-in
 #### Option 1: Email and password
@@ -57,9 +59,9 @@ You can also use your face ID to login. However, your face must have been captur
 ### Using Existing User
 When signing up as new users, there will be no accounts or transactions to display. Instead, you may use an existing users' account, which have a database of transactions, accounts and profile information. Follow the following steps:
 
-1. Run `python face_capture.py`
-2. Run `python train.py`
-3. Run `python backend.py`
+1. Run `python face_capture.py` to capture your face
+2. Run `python train.py` to train the model
+3. Run `python backend.py` to launch the app
 4. Login with Face ID
 5. You should login as `Aayush Batwara`
 
