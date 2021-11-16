@@ -18,7 +18,7 @@ def faceCapture(user_name, num_images):
     cnt = 1
     font = cv2.FONT_HERSHEY_SIMPLEX
     bottomLeftCornerOfText = (80, 50)
-    fontScale = 1
+    fontScale = 0.7
     fontColor = (102, 102, 225)
     lineType = 2
 
