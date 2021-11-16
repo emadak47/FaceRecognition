@@ -1,36 +1,51 @@
 from src.DB import DB
+import datetime
 
-#all time data is giving me problems when converting from mysql output --> jsonify(mysql query output)
-#so i have removed it for now
 class Transaction(DB):
     def __init__(self, customer_id):
         DB.__init__(self)
         self.customer_id = customer_id
 
+    def tx_read(self, query):
+        if self.connect():
+            try:
+                self.cursor.execute(query)
+                response = self.cursor.fetchall()
+                self.disconnect()
+                for record in response:
+                    record["creation_time"] = str(record["creation_time"])
+                    record["creation_date"] = str(record["creation_date"])
+                return [record for record in response]
+            except:
+                print("Failed to read")
+                self.disconnect()
+        else:
+            print("Connection Failed")
+
     def get_tx(self, data):
         if (data["account"] != "All"):
             query = """
-            SELECT M.business_type, M.name, T.amount
-            -- T.creation_time,
+            SELECT M.business_type, M.name, T.amount, T.creation_time, T.creation_date, T.description
             FROM Transaction T, Account A, Merchant M
             WHERE T.merchant_id = M.merchant_id AND T.account_no = A.account_no AND A.customer_id = {}
             AND T.amount >= {} AND T.amount <= {}
             AND T.creation_date BETWEEN "{}" AND "{}"
             AND A.account_no = {}
+            AND T.creation_time BETWEEN "{}" AND "{}"
             ORDER BY T.creation_date DESC, T.creation_time DESC;
-            """.format(self.customer_id, data["minAmount"], data["maxAmount"], data["minDate"], data["maxDate"], data["account"])
+            """.format(self.customer_id, data["minAmount"], data["maxAmount"], data["minDate"], data["maxDate"], data["account"], data["minTime"], data["maxTime"])
         else:
             query = """
-            SELECT M.business_type, M.name, T.amount
-            -- T.creation_time,
+            SELECT M.business_type, M.name, T.amount, T.creation_time, T.creation_date, T.description
             FROM Transaction T, Account A, Merchant M
             WHERE T.merchant_id = M.merchant_id AND T.account_no = A.account_no AND A.customer_id = {}
             AND T.amount >= {} AND T.amount <= {}
             AND T.creation_date BETWEEN "{}" AND "{}"
+            AND T.creation_time BETWEEN "{}" AND "{}"
             ORDER BY T.creation_date DESC, T.creation_time DESC;
-            """.format(self.customer_id, data["minAmount"], data["maxAmount"], data["minDate"], data["maxDate"])
+            """.format(self.customer_id, data["minAmount"], data["maxAmount"], data["minDate"], data["maxDate"], data["minTime"], data["maxTime"])
 
-        return self.read(query)
+        return self.tx_read(query)
 
     def get_tx_by_amount(self, data):
         query = """

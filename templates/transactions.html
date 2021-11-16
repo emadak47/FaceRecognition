@@ -68,10 +68,13 @@
                         <tr>
                             <th scope="col">Type</th>
                             <th scope="col">Merchant</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Desc.</th>
                             <th scope="col">Amount</th>
                         </tr>
                     </thead>
-                    <tbody id="transactionTable">
+                    <tbody class = "tableBody" id="transactionTable">
                     </tbody>
                 </table>
 
@@ -99,18 +102,7 @@
                         <input type="text" class="form-control date-filtering" id="maxDate" placeholder="End Date">
                       </div>
                     </div>
-                    <div class="row row-filtering" id="account">
-                      <div class="col col-labels">
-                        <label>Account</label>
-                      </div>
-                      <div class="col date-col" style="flex: 2.2 0 0%">
-                        <select class="form-control" id="accountsDropdown">
-                          <option selected value="All">All</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <!-- <div class="row row-filtering" id="time">
+                    <div class="row row-filtering" id="time">
                       <div class="col col-labels">
                         <label>Time</label>
                       </div>
@@ -120,8 +112,20 @@
                       <div class="col date-col">
                         <input type="time" class="form-control date-filtering" id="maxTime" placeholder="End Time">
                       </div>
-                    </div> -->
-                    <div class="bottom-bar" style="margin:0.5rem;">
+                    </div>
+
+                    <div class="row row-filtering" id="account">
+                      <div class="col col-labels">
+                        <label>Account</label>
+                      </div>
+                      <div class="col date-col" style="flex: 2.2 0 0%">
+                        <select class="form-control" id="accountsDropdown">
+                        </select>
+                      </div>
+                      <div style="display: none">{{data}}</div>
+                    </div>
+
+                    <div class="bottom-bar" style="margin:0rem; padding: 0rem;">
                         <div class="bottom-bar-home text-center">
                             <button type="submit" class="btn btn-block text-uppercase" onclick="window.location.pathname='/profile/' +  {{data[0]['customer_id']}}">
                                 <span><i class="fa fa-home"></i> HOME </span>
