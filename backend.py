@@ -21,6 +21,32 @@ def login_history(customer_id):
     data = [customer_data[0], customer_log_history]
     return render_template('login_history.html', data = data)
 
+@app.route('/account_settings/<int:customer_id>' ,methods=['POST','GET'])
+def account_settings(customer_id):
+    customer = Customer(customer_id)
+    if request.method == 'POST':
+        result = request.form
+        customer.edit_user_details(
+            result['email'],
+            result['password'],
+            result['address_flat_no'],
+            result['address_street'],
+            result['address_city'],
+            result['address_country']
+        )
+        phone_numbers = result['phone_numbers'].split()
+        customer.edit_user_phone(phone_numbers)
+        
+
+    customer_data = customer.get_user_details()
+
+    customer_log = Log(customer_id)
+    customer_log_history = customer_log.get_log_history()
+
+    data = [customer_data[0], customer_log_history]
+    return render_template('account_settings.html', data = data)
+
+
 @app.route('/profile/<int:customer_id>')
 def profile(customer_id):
     customer = Customer(customer_id)
@@ -35,6 +61,9 @@ def profile(customer_id):
     customer_accounts_info = customer_current_account_info + customer_savings_account_info
 
     data = [customer_data[0], customer_log_history, customer_accounts_info]
+    if request.args:
+        data.append({'message': True})
+        
     return render_template('profile.html', data = data)
 
 
@@ -76,7 +105,7 @@ def index():
         if not request.form:  #face-id login
             customer_id = login_system()
             if(customer_id != -1):
-                return redirect(url_for('profile', customer_id = customer_id))
+                return redirect(url_for('profile', customer_id = customer_id, message = True))
             else:
                 return render_template('index.html', message = "Failed Login")
         else:   #normal login
@@ -86,7 +115,7 @@ def index():
                 customer = Customer(customer_id)
                 login = customer.get_login_details(credentials['email'], credentials['password'])
                 if login:
-                    return redirect(url_for('profile', customer_id = customer_id))
+                    return redirect(url_for('profile', customer_id = customer_id, message = True))
                 else:
                     return render_template('index.html', message = "Failed Login")
             else:

@@ -9,22 +9,6 @@ body {
     background-color: #f3f3f3;
 }
 
-.modal-content {
-    display: block;
-    z-index: 1;
-    position: absolute;
-    top: 45%;
-    left: 50%;
-}
-
-.popup {
-    background: linear-gradient(to right, #6f419c, #ac34e3);
-    width: 250px;
-    height: 100px;
-    text-align: center;
-    padding: 20px;
-}
-
 .login-history-wrapper {
     position: absolute;
     display: flex;
@@ -123,8 +107,20 @@ body {
     border-bottom-right-radius: 20px;
 }
 
-.login-history-wrapper .info {
+.login-history-wrapper .right .main-info {
     height: 330px;
+}
+
+.login-history-wrapper .right .login-banner {
+    width: 100%;
+    padding: 5px;
+    border-radius: 25px;
+    background: linear-gradient(to right, #6f419c, #ac34e3);
+    text-align: center;
+    color: white;
+}
+
+.login-history-wrapper .info {
     overflow-y: auto;
 }
 

@@ -53,6 +53,35 @@ class Customer(DB):
         )
         self.write(query)
 
+    def edit_user_details(self, email, password, address_flat_no, address_street, address_city, address_country):
+        query = """
+                UPDATE Customer
+                SET email = '{}', password = '{}', address_flat_no = '{}', 
+                address_street = '{}', address_city = '{}', address_country = '{}'
+                WHERE customer_id = {};
+        """.format(
+            email,
+            password,
+            address_flat_no,
+            address_street,
+            address_city,
+            address_country,
+            self.customer_id
+        )
+        self.write(query)
+
+    def edit_user_phone(self, phone_numbers):
+        query = """
+                DELETE FROM Phone
+                WHERE customer_id = {}
+        """.format(self.customer_id)
+        self.write(query)
+
+        for index,phone in enumerate(phone_numbers):
+            query = """
+                    INSERT INTO Phone VALUES({},'{}')
+            """.format(self.customer_id, phone)
+            self.write(query)
     
 
     

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMP 3278 Face Recognition Sign In Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/account_settings_style.css') }}">
+</head>
+
+<body>
+    <div class="login-history-wrapper">
+        <div class="left">
+            <a class="profile-link" href="{{ url_for('profile', customer_id = data[0]['customer_id']) }}">
+                <img src="../static/css/img.jpg" alt="user">
+                <h4 class="title text-center mt-4">
+                    {{ data[0]['name_first'] }} {{ data[0]['name_last'] }}
+                </h4>
+            </a>
+            <h5>CUSTOMER</h5>
+            <h5>(+852 {{ data[0]['phone_numbers'][0] }})</h5>
+            <hr class="my-2">
+            <div class='login-history-heading'>
+                <span class="last-login">Login History</span>
+                <!-- <a class="login-history-link"
+                    href="{{ url_for('login_history', customer_id = data[0]['customer_id']) }}">
+                    <span><i class="fa fa-history"></i></span>
+                </a> -->
+            </div>
+            <div class="login-info">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Login Date</th>
+                            <th scope="col">Login Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in data[1] %}
+                        <tr>
+                            <th scope="row">{{ loop.index0 + 1 }}</th>
+                            <td>{{ log['login_date'] }}</td>
+                            <td>{{ log['login_time'] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <hr class="my-2">
+
+            <h6 class="my-2">member since {{ data[1][-1]['login_date'] }} </h6>
+        </div>
+        <div class="right">
+            <form action="" method="POST">
+                <div class="info">
+                    <h2 class="bold text-center my-3">Account Settings</h2>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Setting</th>
+                                <th scope="col">Your Information</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div class="my-3"> </div>
+                            <tr>
+                                <td>Phone: </td>
+                                <td><input type="text" class="edit-box" name="phone_numbers"
+                                        value=" {% for phone in data[0]['phone_numbers'] %}{{ phone }} {% endfor %}"
+                                        tabindex="10"></td>
+                            </tr>
+                            <tr>
+                                <td>Address - Flat No. </td>
+                                <td><input type="text" class="edit-box" name="address_flat_no"
+                                        value="{{ data[0]['address_flat_no'] }}" tabindex="10"></td>
+                            </tr>
+                            <tr>
+                                <td>Address - Street </td>
+                                <td><input type="text" class="edit-box" name="address_street"
+                                        value="{{ data[0]['address_street'] }}" tabindex="10"></td>
+                            </tr>
+                            <tr>
+                                <td>Address - City </td>
+                                <td><input type="text" class="edit-box" name="address_city"
+                                        value="{{ data[0]['address_city'] }}" tabindex="10"></td>
+                            </tr>
+                            <tr>
+                                <td>Address - Country </td>
+                                <td><input type="text" class="edit-box" name="address_country"
+                                        value="{{ data[0]['address_country'] }}" tabindex="10"></td>
+                            </tr>
+                            <tr>
+                                <td>Email: </td>
+                                <td><input type="email" class="edit-box" name="email" value="{{ data[0]['email'] }}"
+                                        tabindex="10">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Password: </td>
+                                <td><input type="password" class="edit-box" name="password"
+                                        value="{{ data[0]['password'] }}" tabindex="10">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center btn btn-block text-uppercase edit-button">
+                    <button type="submit" class="btn btn-block text-uppercase">
+                        SAVE CHANGES
+                    </button>
+                </div>
+            </form>
+            <div class="bottom-bar my-5">
+                <div>
+                    <a href="{{ url_for('profile', customer_id = data[0]['customer_id']) }}">
+                        <div class="bottom-bar-home text-center">
+                            <button type="submit" class="btn btn-block text-uppercase">
+                                <span><i class="fa fa-home"></i> HOME </span>
+                            </button>
+                        </div>
+                    </a>
+                </div>
+                <div>
+                    <div class="bottom-bar-transactions text-center">
+                        <button type="submit" class="btn btn-block text-uppercase">
+                            transactions
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery (Bootstrap JS plugins depend on it) -->
+    <script src="{{ url_for('static', filename = 'js/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/index_script.js') }}"></script>
+</body>
+
+</html>
