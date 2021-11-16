@@ -5,15 +5,23 @@ from dotenv import load_dotenv
 load_dotenv()
 
 db_config = {
+        # mysql://beb5c38bddd99e:26328889@us-cdbr-east-04.cleardb.com/heroku_12ebac061f78d2f?reconnect=true
         'host': os.getenv('MYSQL_HOST'),
         'user': os.getenv('MYSQL_USER'),
         'password': os.getenv('MYSQL_PASSWORD'),
         'database': os.getenv('MYSQL_DB')
     }
 
+db_config_heroku = {
+        'host' : 'us-cdbr-east-04.cleardb.com', 
+        'user': 'beb5c38bddd99e',
+        'password' : '26328889',
+        'database' : 'heroku_12ebac061f78d2f'
+    }
+
 class DB:
     def __init__(self):
-        self.config = db_config
+        self.config = db_config_heroku
 
     def connect(self):
         try:
