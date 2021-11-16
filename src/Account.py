@@ -91,18 +91,27 @@ class Account(DB):
         self.write(query1)
 
         query2 = """
-                INSERT INTO `SavingsAccount` VALUES ({}, {}, "{}");
+                INSERT INTO `Account` VALUES ({}, {}, {});
         """.format(
-            account_no,
-            0,
-            "HKD"
+            account_no + 1,
+            self.customer_id,
+            2
         )
         self.write(query2)
 
         query3 = """
+                INSERT INTO `SavingsAccount` VALUES ({}, {}, "{}");
+        """.format(
+            account_no + 1,
+            0,
+            "HKD"
+        )
+        self.write(query3)
+
+        query4 = """
                 INSERT INTO `CurrentAccount` VALUES ({}, {});
         """.format(
             account_no,
             0
         )
-        self.write(query3)
+        self.write(query4)
