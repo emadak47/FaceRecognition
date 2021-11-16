@@ -127,6 +127,7 @@ body {
   margin-top: auto;
   flex: 0.5 0 0%;
   margin-bottom: auto;
+  font-size: 14px;
 }
 
 .row-filtering{
@@ -163,6 +164,10 @@ input[type=""date]{
 .bottom-bar button[type='reset']:hover {
     background: black;
     color: #ac34e3;
+}
+
+.bottom-bar button{
+  padding: 0.5rem 0.5rem !important;
 }
 
 .table{
@@ -283,4 +288,8 @@ input[type=""date]{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px;
+}
+
+.form-control{
+    font-size: 12px;
 }
